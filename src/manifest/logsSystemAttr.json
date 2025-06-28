@@ -1,0 +1,20 @@
+{
+    "log_system": {
+      "id": "system_log",
+      "endpoint": "/systems",
+      "parameters": ["page", "limit", "username", "start_date", "end_date"],
+      "responseField": ["Id", "Id Activity", "Timestamp", "User Id", "Username", "Roles", "Device Id", "Session Id"]
+    },
+    "session_log" : {
+      "id": "session_log",
+      "endpoint": "/session",
+      "parameters": ["page", "limit", "username", "start_date", "end_date"],
+      "responseField": ["Id", "Id Activity", "Timestamp", "User Id", "Username", "Roles", "Access Token", "Expired Access Token", "Refresh Token", "Expired Refresh Token", "Device Id", "Is Active"]
+    },
+    "interface_log" : {
+      "id": "interface_log",
+      "endpoint": "/interface",
+      "parameters": ["page", "limit", "user_id", "start_date", "end_date"],
+      "responseField": ["Id", "Id Activity", "Timestamp", "User Id", "Access Token", "Request Payload", "Response Payload", "Response Time"]
+    }
+}
