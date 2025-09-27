@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import ComponentCard from "../common/ComponentCard";
-import apiAttribute from "../../manifest/logsSystemAttr.json"
+import apiAttribute from "../../manifest/json/logsSystemAttr.json"
 import createParamsAPI from "../../hooks/createParamsAPI"
 import callAPIClientSide from "@/hooks/callAPIClientSide";
 import BasicTableDynamic from "../tables/BasicTableDynamic";

@@ -1,7 +1,6 @@
 import ComponentCard from "@/components/common/ComponentCard";
 import PageBreadcrumb from "@/components/common/PageBreadCrumb";
 import LogsTable from "@/components/logs/LogsTable";
-import LogsTypeOptions from "@/components/logs/LogsTypeOptions";
 import BasicTableOne from "@/components/tables/BasicTableOne";
 import Button from "@/components/ui/button/Button";
 import { Dropdown } from "@/components/ui/dropdown/Dropdown";
