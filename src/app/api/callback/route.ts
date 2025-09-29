@@ -24,7 +24,9 @@ export async function GET(request:Request) {
                 })
 
                 if(refreshToken) {
-                    localStorage.setItem('refresh_token', refreshToken.value ?? "null")
+                    if (typeof window !== 'undefined'){
+                        localStorage.setItem('refresh_token', refreshToken.value ?? "null")
+                    }
                 }
             } else {
                 redirect('/unauthorized')
