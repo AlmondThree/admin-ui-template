@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import ComponentCard from "../common/ComponentCard";
 import apiAttribute from "../../manifest/json/logsSystemAttr.json"
 import createParamsAPI from "../../hooks/createParamsAPI"
-import callAPIClientSide from "@/hooks/callAPIClientSide";
 import BasicTableDynamic from "../tables/BasicTableDynamic";
 
 const LogsTable: React.FC = () => {
@@ -30,18 +29,23 @@ const LogsTable: React.FC = () => {
 
       const parameter = createParamsAPI(objectLogs.parameters, paramPagination)
 
-      callAPIClientSide(
+      fetch(
         `${process.env["NEXT_PUBLIC_BACKEND_HOST"]}/api/logs/v1${objectLogs.endpoint}${parameter}`,
         {
           method: "GET",
           headers: 
             {
               'Content-Type': 'application/json',
-              'x-api-key': process.env["NEXT_PUBLIC_API_KEY"]
+              'x-api-key': `${process.env["NEXT_PUBLIC_API_KEY"]}`
             },
         }
       ).then((res) => {
-        setData(res.data)
+        let data = res.json();
+
+        data.then((res) => {
+          setData(res.data)
+        })
+
         setListHeaders(apiAttribute[selected].responseField)
       })
 
