@@ -5,5 +5,5 @@
     export default middlewareChain([authHandler]);
 
     export const config = {
-      matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'], // Apply middleware to all paths except static assets
+      matcher: ['/((?!unauthorized|not-found|api|images/*|_next/static|_next/image|favicon.ico).*)'], // Apply middleware to all paths except static assets
     };
