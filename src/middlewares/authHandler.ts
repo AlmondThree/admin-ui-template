@@ -1,12 +1,35 @@
+import { Roles } from "@/models/Roles";
+import { Token } from "@/models/Token";
 import { cookies } from "next/headers";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function authHandler(request:Request, next: Function) {
+import authorizationAttr from "@/manifest/json/authorizationAttr.json"
+
+export async function authHandler(request:NextRequest, next: Function) {
     
     const cookieStore = await cookies();
 
     if(cookieStore.get('isLoggedIn')) {
-        return next();
+
+        //Get Authorized roles from Manifest
+        const rolesClass = new Roles(authorizationAttr.mapAuthorizedRole);
+        const authorizedRoles = rolesClass.getAuthorizedRoleByPath(request.nextUrl.pathname);
+
+        //Get user roles from Token
+        const tokenClass = new Token(cookieStore.get("access_token")?.value);
+
+        const rolesUser : string [] | undefined = await tokenClass.getRoles();
+
+        for(let items of rolesUser!) {
+            if(authorizedRoles?.includes(items)){
+                return next();
+            } else {
+                let url = request.nextUrl.clone();
+                url.pathname = '/unauthorized'
+                return NextResponse.redirect(url);
+            }
+        }
+
     } else {
         if(cookieStore.get('refresh_token')){
             //call by refresh token

@@ -1,0 +1,12 @@
+{
+    "mapAuthorizedRole": [
+        {
+            "path": "/",
+            "authorizedRole": [
+                "admin.view",
+                "admin.super",
+                "user.view"
+            ]
+        }
+    ]
+}
