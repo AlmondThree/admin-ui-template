@@ -1,0 +1,26 @@
+[
+    {
+        "path": "/api/callback/auth",
+        "activityId": "690cd03b46eef6b5177eb468",
+        "activityName": "Login",
+        "activityCategory": "ALL.ROLE"
+    },
+    {
+        "path": "/",
+        "activityId": "690f49143ab8b8662e672dbd",
+        "activityName": "Access Admin Page",
+        "activityCategory": "ADMIN"
+    },
+    {
+        "path": "/logs",
+        "activityId": "690f49143ab8b8662e672dbe",
+        "activityName": "Get data Logs",
+        "activityCategory": "ADMIN"
+    },
+    {
+        "path": "/roles",
+        "activityId": "690f49143ab8b8662e672dbf",
+        "activityName": "Get data Roles",
+        "activityCategory": "ADMIN"
+    }
+]

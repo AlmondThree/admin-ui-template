@@ -6,6 +6,10 @@ import { NextRequest, NextResponse } from "next/server";
 import authorizationAttr from "@/manifest/json/authorizationAttr.json"
 
 export async function authHandler(request:NextRequest, next: Function) {
+
+    if(request.nextUrl.pathname.includes('api/')) {
+        return next();
+    }
     
     const cookieStore = await cookies();
 
@@ -23,12 +27,12 @@ export async function authHandler(request:NextRequest, next: Function) {
         for(let items of rolesUser!) {
             if(authorizedRoles?.includes(items)){
                 return next();
-            } else {
-                let url = request.nextUrl.clone();
-                url.pathname = '/unauthorized'
-                return NextResponse.redirect(url);
             }
         }
+
+        let url = request.nextUrl.clone();
+        url.pathname = '/unauthorized'
+        return NextResponse.redirect(url);
 
     } else {
         if(cookieStore.get('refresh_token')){

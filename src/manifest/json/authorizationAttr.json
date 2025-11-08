@@ -4,8 +4,24 @@
             "path": "/",
             "authorizedRole": [
                 "admin.view",
-                "admin.super",
-                "user.view"
+                "super.admin",
+                "admin.manage"
+            ]
+        },
+        {
+            "path": "/roles",
+            "authorizedRole": [
+                "admin.view",
+                "super.admin",
+                "admin.manage"
+            ]
+        },
+        {
+            "path": "/logs",
+            "authorizedRole": [
+                "admin.view",
+                "super.admin",
+                "admin.manage"
             ]
         }
     ]
