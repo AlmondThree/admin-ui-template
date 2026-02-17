@@ -5,13 +5,15 @@ import ComponentCard from "../common/ComponentCard";
 import apiAttribute from "../../manifest/json/logsSystemAttr.json"
 import createParamsAPI from "../../hooks/createParamsAPI"
 import BasicTableDynamic from "../tables/BasicTableDynamic";
+import { cookies } from "next/headers";
 
 const LogsTable: React.FC = () => {
   const [selected, setSelected] = useState<
     "log_system" | "session_log" | "interface_log"
   >("log_system");
   const [data, setData] = useState<Object[]>([{}]);
-  const [listHeaders, setListHeaders] = useState<string[]>([])
+  const [listHeaders, setListHeaders] = useState<string[]>([]);
+  const [fetchStatus, setFetchStatus] = useState<boolean>(false);
 
   const getButtonClass = (option: "log_system" | "session_log" | "interface_log") =>
     selected === option
@@ -20,37 +22,27 @@ const LogsTable: React.FC = () => {
 
   useEffect(() => {
     async function fetchData() {
-      let objectLogs: any = apiAttribute[selected]
-
-      const paramPagination = {
-        page: 1,
-        limit: 5
-      }
-
-      const parameter = createParamsAPI(objectLogs.parameters, paramPagination)
-
-      fetch(
-        `${process.env["NEXT_PUBLIC_BACKEND_HOST"]}/api/logs/v1${objectLogs.endpoint}${parameter}`,
+      const apiCall = await fetch(
+        `/api/logs?type=${selected}&page=1&limit=5`,
         {
           method: "GET",
           headers: 
             {
               'Content-Type': 'application/json',
-              'x-api-key': `${process.env["NEXT_PUBLIC_API_KEY"]}`
-            },
+            }
         }
-      ).then((res) => {
-        let data = res.json();
+      )
 
-        data.then((res) => {
-          setData(res.data)
-        })
+      if(apiCall.ok){
+        const res = await apiCall.json();
 
-        setListHeaders(apiAttribute[selected].responseField)
-      })
-
+        setData(res.data);
+        setFetchStatus(true);
+      }
     }
-    fetchData()
+
+    setListHeaders(apiAttribute[selected].responseField)
+    fetchData();
 
   }, [selected])
 
@@ -87,10 +79,13 @@ const LogsTable: React.FC = () => {
       </div>
       <div className="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-white/[0.05] dark:bg-white/[0.03]">
         <div className="max-w-full overflow-x-auto">
-            <BasicTableDynamic 
-              headers={listHeaders!}
-              data={data!}
-            />
+            {
+              (fetchStatus) &&
+              <BasicTableDynamic 
+                headers={listHeaders!}
+                data={data!}
+              />
+            }
         </div>
       </div>
     
