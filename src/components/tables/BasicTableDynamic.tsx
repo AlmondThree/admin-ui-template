@@ -32,28 +32,30 @@ const BasicTableDynamic: React.FC<BasicTableDynamicProps> = ({
         )
     }
 
-    let fieldKey = Object.keys(data[0])
-    for (let i = 0 ; i < data.length; i++) {
-        let dataIterator: any = data[i]
-        let dataPerRows = []
-        for(const x of fieldKey) {
-            let value = dataIterator[x]
-            if(dataIterator[x] instanceof Object) {
-                value = JSON.stringify(dataIterator[x])
+    if(data.length > 0) {
+        let fieldKey = Object.keys(data[0])
+        for (let i = 0 ; i < data.length; i++) {
+            let dataIterator: any = data[i]
+            let dataPerRows = []
+            for(const x of fieldKey) {
+                let value = dataIterator[x]
+                if(dataIterator[x] instanceof Object) {
+                    value = JSON.stringify(dataIterator[x])
+                }
+
+                dataPerRows.push(
+                    <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400" key={x}>
+                        {value}
+                    </TableCell>
+                )
             }
 
-            dataPerRows.push(
-                <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400" key={x}>
-                    {value}
-                </TableCell>
+            dataTableBody.push(
+                <TableRow key={dataIterator._id+"cell"}>
+                    {dataPerRows}
+                </TableRow>
             )
         }
-
-        dataTableBody.push(
-            <TableRow key={dataIterator._id+"cell"}>
-                {dataPerRows}
-            </TableRow>
-        )
     }
 
     return (
