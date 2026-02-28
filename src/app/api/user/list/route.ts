@@ -1,6 +1,5 @@
 import createParamsAPI from "@/hooks/createParamsAPI";
-import { StandardListReqParam } from "@/manifest/object/interfaceProps";
-import { getRoleProps } from "@/manifest/object/rolesProps";
+import { StandardListProps, StandardListReqParam } from "@/manifest/object/interfaceProps";
 
 export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
@@ -11,10 +10,10 @@ export async function GET(request: Request) {
         size: searchParams.get('size')
     }
 
-    const parameter = createParamsAPI(getRoleProps.parameter, reqAttr);
+    const parameter = createParamsAPI(StandardListProps.parameter, reqAttr);
 
     return fetch(
-        `${process.env["NEXT_PUBLIC_BACKEND_HOST_AUTH"]}/api/auth/v1${getRoleProps.endpoint}${parameter}`,
+        `${process.env["NEXT_PUBLIC_BACKEND_HOST_AUTH"]}/api/auth/v1/users/list${parameter}`,
         {
         method: "GET",
         headers: 
