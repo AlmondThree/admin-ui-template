@@ -24,7 +24,7 @@ const BasicTableDynamic: React.FC<BasicTableDynamicProps> = ({
         dataTableHeader.push(
             <TableCell
                 isHeader
-                className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
+                className="px-5 py-3 font-large text-gray-500 text-start text-theme-xs dark:text-gray-400"
                 key={i}
             >
                 {i}
@@ -32,7 +32,7 @@ const BasicTableDynamic: React.FC<BasicTableDynamicProps> = ({
         )
     }
 
-    if(data.length > 0) {
+    if(data !== undefined && data.length > 0) {
         let fieldKey = Object.keys(data[0])
         for (let i = 0 ; i < data.length; i++) {
             let dataIterator: any = data[i]
@@ -51,7 +51,7 @@ const BasicTableDynamic: React.FC<BasicTableDynamicProps> = ({
             }
 
             dataTableBody.push(
-                <TableRow key={dataIterator._id+"cell"}>
+                <TableRow key={(dataIterator._id === undefined) ? i : dataIterator._id+"cell"}>
                     {dataPerRows}
                 </TableRow>
             )

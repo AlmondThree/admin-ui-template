@@ -37,6 +37,10 @@ const navItems: NavItem[] = [
   {
     icon: <GroupIcon />,
     name: "Roles",
+    subItems: [
+      {name: "List Roles", path: "/roles", pro: false },
+      { name: "Assign Roles", path: "/assign/roles", pro: false },
+    ],
     path: "/roles",
   },
 ];

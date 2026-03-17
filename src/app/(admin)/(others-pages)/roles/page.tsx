@@ -1,13 +1,7 @@
-import ComponentCard from "@/components/common/ComponentCard";
 import PageBreadcrumb from "@/components/common/PageBreadCrumb";
-import LogsTable from "@/components/logs/LogsTable";
-import BasicTableOne from "@/components/tables/BasicTableOne";
-import Button from "@/components/ui/button/Button";
-import { Dropdown } from "@/components/ui/dropdown/Dropdown";
-import { DropdownItem } from "@/components/ui/dropdown/DropdownItem";
+import RolesListContent from "@/components/roles/RolesListContent";
 import { Metadata } from "next";
 import React from "react";
-import { useState } from "react";
 
 export const metadata: Metadata = {
   title: "Traxify Admin",
@@ -16,12 +10,23 @@ export const metadata: Metadata = {
   // other metadata
 };
 
-export default function Logs() {
+interface PageProps {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}
+
+export default async function Roles({ searchParams }: PageProps) {
+
+  const resolvedParams = await searchParams;
+  
+  const currentQuery = typeof resolvedParams.query === 'string' 
+    ? resolvedParams.query 
+    : '';
+
   return (
     <div>
-      <PageBreadcrumb pageTitle="Logs" />
+      <PageBreadcrumb pageTitle="List Roles" />
       <div className="space-y-6">
-        <LogsTable />
+        <RolesListContent key={currentQuery} query={currentQuery}/>
       </div>
     </div>
   );
