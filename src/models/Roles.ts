@@ -1,3 +1,5 @@
+import matchWildcard from "@/utils/wildcard/matchWildcard";
+
 export class Roles {
     dataList: {
         path: string;
@@ -33,7 +35,8 @@ export class Roles {
         let dataIteration: {path: string; authorizedRole: string[]}[] = this.dataList!
 
         for(let i = 0 ; i < this.dataList?.length!; i++) {
-            if(dataIteration[i].path.includes(inputPath)) {
+            const wildCard = matchWildcard(inputPath, dataIteration[i].path)
+            if(dataIteration[i].path.includes(inputPath) || wildCard) {
                 return dataIteration[i].authorizedRole;
             }
         }

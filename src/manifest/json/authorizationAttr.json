@@ -23,6 +23,46 @@
                 "super.admin",
                 "admin.manage"
             ]
+        },
+        {
+            "path": "/assign/roles",
+            "authorizedRole": [
+                "admin.view",
+                "super.admin",
+                "admin.manage"
+            ]
+        },
+        {
+            "path": "/assign/roles/*",
+            "authorizedRole": [
+                "admin.view",
+                "super.admin",
+                "admin.manage"
+            ]
+        },
+        {
+            "path": "/modals",
+            "authorizedRole": [
+                "admin.view",
+                "super.admin",
+                "admin.manage"
+            ]
+        },
+        {
+            "path": "/badge",
+            "authorizedRole": [
+                "admin.view",
+                "super.admin",
+                "admin.manage"
+            ]
+        },
+        {
+            "path": "/alerts",
+            "authorizedRole": [
+                "admin.view",
+                "super.admin",
+                "admin.manage"
+            ]
         }
     ]
 }
