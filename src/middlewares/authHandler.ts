@@ -24,9 +24,11 @@ export async function authHandler(request:NextRequest, next: Function) {
 
         const rolesUser : string [] | undefined = await tokenClass.getRoles();
 
-        for(let items of rolesUser!) {
-            if(authorizedRoles?.includes(items)){
-                return next();
+        if (rolesUser !== undefined) {
+            for(let items of rolesUser!) {
+                if(authorizedRoles?.includes(items)){
+                    return next();
+                }
             }
         }
 
