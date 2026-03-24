@@ -2,7 +2,7 @@ import PageBreadcrumb from "@/components/common/PageBreadCrumb";
 import AssignRoleDetailsContent from "@/components/roles/AssignRoleDetailsContent";
 import { UserData } from "@/models/User";
 import { Metadata } from "next";
-import React, { useState } from "react";
+import React from "react";
 
 export const metadata: Metadata = {
   title: "Traxify Admin",
@@ -51,15 +51,15 @@ export default async function AssignRolesDetails({ params }: PageProps) {
 
     }
 
-  } catch (e: any) {
-    console.log(e.toString())
+  } catch (e) {
+    console.log(e as string)
   }
 
   return (
     <div>
       <PageBreadcrumb pageTitle="Assign Roles" />
       <div className="space-y-6">
-        <AssignRoleDetailsContent query={""} userId={id} userData={resDataUser} />
+        <AssignRoleDetailsContent query={""} userData={resDataUser} />
       </div>
     </div>
   );

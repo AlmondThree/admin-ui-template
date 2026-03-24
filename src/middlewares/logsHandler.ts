@@ -13,12 +13,12 @@ export async function logsHandler(request:NextRequest, next: Function) {
     const activityAttr = activityAttribute;
     const paramPath = (request.nextUrl.pathname.includes('/api/callback')) ? `${request.nextUrl.pathname}/${request.nextUrl.searchParams.get('type')}` : request.nextUrl.pathname;
 
-    for(let items of activityAttr){
+    for(const items of activityAttr){
         if(items.path == paramPath) {idActivity = items.activityId}
     }
 
     //Get Roles
-    let rolesArray: string[] | undefined= await tokenObj.getRoles()
+    const rolesArray: string[] | undefined= await tokenObj.getRoles()
     
     let rolesStr: string | undefined
 

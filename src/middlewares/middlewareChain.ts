@@ -4,7 +4,7 @@ export function middlewareChain(middlewares: Function[]) {
   return async (request: NextRequest) => {
     let response = NextResponse.next();
     for (const middleware of middlewares) {
-      const result = await middleware(request, (req: NextRequest) => response);
+      const result = await middleware(request, () => response);
       if (result instanceof NextResponse) {
         response = result;
         if (response.headers.get('x-middleware-rewrite') || response.headers.get('x-middleware-redirect')) {

@@ -9,7 +9,7 @@ import {
 
 type BasicTableDynamicProps = {
     headers: Array<string>,
-    data: Object[]
+    data: object[]
 }
 
 const BasicTableDynamic: React.FC<BasicTableDynamicProps> = ({
@@ -17,8 +17,8 @@ const BasicTableDynamic: React.FC<BasicTableDynamicProps> = ({
     data
 }) => {
 
-    let dataTableHeader:React.ReactNode[] = []
-    let dataTableBody:React.ReactNode[] = []
+    const dataTableHeader:React.ReactNode[] = []
+    const dataTableBody:React.ReactNode[] = []
 
     for (const i of headers) {
         dataTableHeader.push(
@@ -33,9 +33,9 @@ const BasicTableDynamic: React.FC<BasicTableDynamicProps> = ({
     }
 
     if(data !== undefined && data.length > 0) {
-        let fieldKey = Object.keys(data[0])
+        const fieldKey = Object.keys(data[0])
         for (let i = 0 ; i < data.length; i++) {
-            let dataIterator: any = data[i]
+            const dataIterator: any = data[i]
             let dataPerRows = []
             for(const x of fieldKey) {
                 let value = dataIterator[x]

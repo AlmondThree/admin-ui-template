@@ -1,6 +1,6 @@
 const createParamsAPI = (paramsList:Array<string>, paramsValue:any) => {
     let parameter = (paramsValue != null) ? "?" : "";
-    for(let i of paramsList) {
+    for(const i of paramsList) {
         if (paramsValue[i] != null) {
             parameter=parameter+`${i}=${paramsValue[i]}&`
         }

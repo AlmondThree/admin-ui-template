@@ -1,12 +1,12 @@
 export type ManifestType = {
-    id: String,
-    endpoint: String,
+    id: string,
+    endpoint: string,
     parameter: string[],
     responseField: string[]
 }
 
 export type StandardListReqParam = {
-    q: String | undefined | null,
+    q: string | undefined | null,
     page: number | string | undefined | null,
     size: number | string | undefined | null
 }
@@ -19,7 +19,7 @@ export type StandardListResponse = {
         total_data: number | undefined | null,
         last_page: number | undefined | null
     },
-    data: Object[]
+    data: object[]
 }
 
 export const StandardListProps = {

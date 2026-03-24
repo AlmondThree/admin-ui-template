@@ -1,12 +1,11 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import BasicTableDynamic from "../tables/BasicTableDynamic";
 import TableLoadingSkeleton from "../tables/TableLoadingSkeleton";
 import ComponentCard from "../common/ComponentCard";
 import Pagination from "../tables/Pagination";
 import DefaultSearchBar from "../search/DefaultSearchBar";
-import apiAttribute from "../../manifest/json/logsSystemAttr.json"
 
 type paginationPropsLogs = {
   currPage: number,
@@ -65,7 +64,9 @@ const RolesListContent: React.FC<RolesListProp> = ({query}) => {
 
   return(
     <div className="grid grid-cols-1 gap-4">
-        <ComponentCard title={"Search Role"} children={<DefaultSearchBar/>} />
+        <ComponentCard title={"Search Role"}> 
+          <DefaultSearchBar/>
+        </ComponentCard>
 
         <ComponentCard title="Roles">
             <div className="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-white/[0.05] dark:bg-white/[0.03]">

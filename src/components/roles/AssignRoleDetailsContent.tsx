@@ -8,11 +8,10 @@ import DynamicTableRowAction, { ActionComponentProps } from "../tables/DynamicTa
 import { UserData } from "@/models/User";
 import MiniComponentCard from "../common/MiniComponentCard";
 import Button from "../ui/button/Button";
-import { BoxIcon, ListIcon } from "@/icons";
 import { useModal } from "@/hooks/useModal";
 import DynamicModal from "../modal/DynamicModal";
 import Loading from "@/app/loading";
-import { useRouter } from "next/navigation";
+import { ListIcon } from "@/icons";
 
 type paginationPropsLogs = {
   currPage: number,
@@ -75,10 +74,10 @@ const AssignRoleDetailsContent: React.FC<RolesListProp> = ({query, userData}) =>
         
         const rawData: dataRoles[] = res.data;
 
-        let dataFinal: dataRoles[] = [];
-        let dataRolesList: dataRoles[] = [];
+        const dataFinal: dataRoles[] = [];
+        const dataRolesList: dataRoles[] = [];
 
-        for(let item of rawData) {
+        for(const item of rawData) {
           if(userData?.roles.includes( item.role_name)) {
             dataFinal.push(item)
           } else {

@@ -6,9 +6,9 @@ export async function GET(request: Request) {
 
     const typeLog: string = searchParams.get('type')!;
 
-    let paramLog: "log_system" | "session_log" | "interface_log" = (typeLog === "log_system" || typeLog === "session_log" || typeLog === "interface_log") ? typeLog : "log_system";
+    const paramLog: "log_system" | "session_log" | "interface_log" = (typeLog === "log_system" || typeLog === "session_log" || typeLog === "interface_log") ? typeLog : "log_system";
 
-    let objectLogs: any = apiAttribute[paramLog];
+    const objectLogs = apiAttribute[paramLog];
 
     const paramPagination = {
         page: searchParams.get('page'),

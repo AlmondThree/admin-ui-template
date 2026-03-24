@@ -65,7 +65,3 @@ const DefaultSearchBar: React.FC = () => {
 }
 
 export default DefaultSearchBar;
-
-function toggleSidebar() {
-    throw new Error("Function not implemented.");
-}

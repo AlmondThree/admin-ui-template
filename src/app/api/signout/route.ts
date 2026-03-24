@@ -9,6 +9,8 @@ export async function GET(request:Request) {
     cookieStore.delete("refresh_token");
     cookieStore.delete("isLoggedIn");
 
+    console.log(request);
+
     fetch(`${process.env.NEXT_PUBLIC_AUTH_UI_HOST}/api/signout`, {
         method: 'POST',
 

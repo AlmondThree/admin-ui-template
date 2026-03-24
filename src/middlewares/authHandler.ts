@@ -25,14 +25,14 @@ export async function authHandler(request:NextRequest, next: Function) {
         const rolesUser : string [] | undefined = await tokenClass.getRoles();
 
         if (rolesUser !== undefined) {
-            for(let items of rolesUser!) {
+            for(const items of rolesUser!) {
                 if(authorizedRoles?.includes(items)){
                     return next();
                 }
             }
         }
 
-        let url = request.nextUrl.clone();
+        const url = request.nextUrl.clone();
         url.pathname = '/unauthorized'
         return NextResponse.redirect(url);
 

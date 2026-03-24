@@ -13,7 +13,7 @@ export async function GET(request:Request) {
                 isKeepLogin: searchParams.get('iskeeplogin'),
             }
             
-            let cookieStore = await cookies();
+            const cookieStore = await cookies();
 
             try {
                 const getAccessToken = await fetch (

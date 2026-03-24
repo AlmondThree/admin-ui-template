@@ -32,7 +32,7 @@ export class Roles {
     }
 
     getAuthorizedRoleByPath(inputPath: string) {
-        let dataIteration: {path: string; authorizedRole: string[]}[] = this.dataList!
+        const dataIteration: {path: string; authorizedRole: string[]}[] = this.dataList!
 
         for(let i = 0 ; i < this.dataList?.length!; i++) {
             const wildCard = matchWildcard(inputPath, dataIteration[i].path)
