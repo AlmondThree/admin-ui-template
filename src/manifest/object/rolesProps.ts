@@ -29,3 +29,8 @@ export const getUserDetailsProps: ManifestType = {
     parameter: [],
     responseField: ['status', 'pages', 'data']
 }
+
+export type  RequestAssignScope= {
+    scopeId: string | undefined | null,
+    roleId: string[] | undefined | null
+}
