@@ -32,13 +32,19 @@ export class Roles {
     }
 
     getAuthorizedRoleByPath(inputPath: string) {
-        const dataIteration: {path: string; authorizedRole: string[]}[] = this.dataList!
+        if (!this.dataList) return undefined;
 
-        for(let i = 0 ; i < this.dataList?.length!; i++) {
-            const wildCard = matchWildcard(inputPath, dataIteration[i].path)
-            if(dataIteration[i].path.includes(inputPath) || wildCard) {
+        const dataIteration = this.dataList;
+
+        for (let i = 0; i < dataIteration.length; i++) {
+            const currentPath = dataIteration[i].path;
+            const wildCard = matchWildcard(inputPath, currentPath);
+
+            if (currentPath.includes(inputPath) || wildCard) {
                 return dataIteration[i].authorizedRole;
             }
         }
+        
+        return undefined;
     }
 }

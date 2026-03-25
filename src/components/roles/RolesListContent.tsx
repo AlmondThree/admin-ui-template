@@ -18,7 +18,7 @@ interface RolesListProp {
 }
 
 const RolesListContent: React.FC<RolesListProp> = ({query}) => {
-  const [data, setData] = useState<Object[]>([{}]);
+  const [data, setData] = useState<Record<string, unknown>[]>([{}]);
   const [listHeaders, setListHeaders] = useState<string[]>([]);
   const [fetchStatus, setFetchStatus] = useState<boolean>(false);
   const [pageInfo, setPageInfo] = useState<paginationPropsLogs>({
@@ -31,36 +31,38 @@ const RolesListContent: React.FC<RolesListProp> = ({query}) => {
     setPageInfo({...pageInfo, currPage: pageNumber})
   }
 
+  const { currPage, size } = pageInfo;
+
   useEffect(() => {
     async function fetchData() {
       const apiCall = await fetch(
-        `/api/roles?q=${query}&page=${pageInfo.currPage}&size=${pageInfo.size}`,
+        `/api/roles?q=${query}&page=${currPage}&size=${size}`,
         {
           method: "GET",
-          headers: 
-            {
-              'Content-Type': 'application/json',
-            }
+          headers: { 'Content-Type': 'application/json' }
         }
-      )
+      );
 
-      if(apiCall.ok){
+      if (apiCall.ok) {
         const res = await apiCall.json();
         
         setData(res.data);
-        setPageInfo({
-          ...pageInfo,
-          totalPage:res.pages.last_page
-        })
+
+        setPageInfo(prev => ({
+          ...prev,
+          totalPage: res.pages.last_page
+        }));
+
         setFetchStatus(true);
       }
     }
 
-    setListHeaders(["Role Id", "Roles Name", "Description"])
-    console.log(listHeaders)
+    const headers = ["Role Id", "Roles Name", "Description"];
+    setListHeaders(headers);
+
     fetchData();
 
-  }, [pageInfo.currPage])
+  }, [currPage, size, query, setData, setListHeaders]);
 
   return(
     <div className="grid grid-cols-1 gap-4">

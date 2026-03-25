@@ -13,7 +13,7 @@ interface DynamicModalProps {
 }
 
 const  DynamicModal: React.FC<DynamicModalProps> = ({children, modalProps}) => {
-  const { isOpen, openModal, closeModal } = modalProps;
+  const { isOpen, closeModal } = modalProps;
 
   return (
     <div>

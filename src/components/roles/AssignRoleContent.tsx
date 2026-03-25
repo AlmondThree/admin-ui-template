@@ -65,34 +65,35 @@ const AssignRoleContent: React.FC<RolesListProp> = ({query}) => {
     router.push(`/assign/roles/${selectedUser}`)
   }
 
+  const { currPage, size } = pageInfo;
+
   useEffect(() => {
     async function fetchData() {
       const apiCall = await fetch(
-        `/api/user/list?q=${query}&page=${pageInfo.currPage}&size=${pageInfo.size}`,
+        `/api/user/list?q=${query}&page=${currPage}&size=${size}`,
         {
           method: "GET",
-          headers: 
-            {
-              'Content-Type': 'application/json',
-            }
+          headers: { 'Content-Type': 'application/json' }
         }
-      )
+      );
 
-      if(apiCall.ok){
+      if (apiCall.ok) {
         const res = await apiCall.json();
         
         setData(res.data);
-        setPageInfo({
-          ...pageInfo,
-          totalPage:res.pages.last_page
-        })
+        
+        setPageInfo(prev => ({
+          ...prev,
+          totalPage: res.pages.last_page
+        }));
+        
         setFetchStatus(true);
       }
     }
 
     fetchData();
 
-  }, [pageInfo.currPage])
+  }, [currPage, size, query]);
 
   return(
     

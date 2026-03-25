@@ -16,7 +16,7 @@ interface ConfirmationModalProps {
 }
 
 const  ConfirmationModal: React.FC<ConfirmationModalProps> = ({confirmationText, text, onAction, modalProps}) => {
-  const { isOpen, openModal, closeModal } = modalProps;
+  const { isOpen, closeModal } = modalProps;
 
   return (
     <div>

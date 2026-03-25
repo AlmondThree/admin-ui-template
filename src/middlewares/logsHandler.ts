@@ -3,7 +3,7 @@ import { Token } from "@/models/Token";
 import { Logs, SystemLogs } from "@/models/Logs"
 import activityAttribute from "@/manifest/json/activityAttr.json"
 
-export async function logsHandler(request:NextRequest, next: Function) {
+export async function logsHandler(request:NextRequest, next: () => void) {
 
     const tokenObj = new Token()
     await tokenObj.getToken()

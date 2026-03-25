@@ -1,13 +1,22 @@
-const createParamsAPI = (paramsList:Array<string>, paramsValue:any) => {
-    let parameter = (paramsValue != null) ? "?" : "";
-    for(const i of paramsList) {
-        if (paramsValue[i] != null) {
-            parameter=parameter+`${i}=${paramsValue[i]}&`
-        }
+const createParamsAPI = (
+  paramsList: string[], 
+  paramsValue: Record<string, unknown> | null | undefined
+): string => {
+  if (!paramsValue) return "";
+
+  const searchParams = new URLSearchParams();
+
+  for (const key of paramsList) {
+    const value = paramsValue[key];
+
+    if (value !== null && value !== undefined) {
+      searchParams.append(key, String(value));
     }
-    const parameterFinal = parameter.slice(0, -1)
+  }
 
-    return parameterFinal
-}
+  const queryString = searchParams.toString();
+  
+  return queryString ? `?${queryString}` : "";
+};
 
-export default createParamsAPI
+export default createParamsAPI;

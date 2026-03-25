@@ -56,48 +56,49 @@ const AssignRoleDetailsContent: React.FC<RolesListProp> = ({query, userData}) =>
 
   const { isOpen, openModal, closeModal } = useModal(false);
 
+  const { currPage, size } = pageInfo;
+
   useEffect(() => {
     async function fetchData() {
+      
       const apiCall = await fetch(
-        `/api/roles?q=${query}&page=${pageInfo.currPage}&size=${pageInfo.size}`,
+        `/api/roles?q=${query}&page=${currPage}&size=${size}`,
         {
           method: "GET",
-          headers: 
-            {
-              'Content-Type': 'application/json',
-            }
+          headers: { 'Content-Type': 'application/json' }
         }
-      )
+      );
 
-      if(apiCall.ok){
+      if (apiCall.ok) {
         const res = await apiCall.json();
-        
         const rawData: dataRoles[] = res.data;
 
         const dataFinal: dataRoles[] = [];
         const dataRolesList: dataRoles[] = [];
 
-        for(const item of rawData) {
-          if(userData?.roles.includes( item.role_name)) {
-            dataFinal.push(item)
+        for (const item of rawData) {
+          if (userData?.roles.includes(item.role_name)) {
+            dataFinal.push(item);
           } else {
-            dataRolesList.push(item)
+            dataRolesList.push(item);
           }
         }
- 
+
         setData(dataFinal);
         setDataRoles(dataRolesList);
-        setPageInfo({
-          ...pageInfo,
-          totalPage:res.pages.last_page
-        })
+
+        setPageInfo(prev => ({
+          ...prev,
+          totalPage: res.pages.last_page
+        }));
+
         setFetchStatus(true);
       }
     }
 
     fetchData();
 
-  }, [pageInfo.currPage])
+  }, [currPage, size, query, userData, setData, setDataRoles]);
 
   useEffect(() => {
     setAddRoles(isOpen);

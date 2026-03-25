@@ -18,7 +18,7 @@ const LogsTable: React.FC = () => {
   const [selected, setSelected] = useState<
     "log_system" | "session_log" | "interface_log"
   >("log_system");
-  const [data, setData] = useState<Object[]>([{}]);
+  const [data, setData] = useState<Record<string, unknown>[]>([{}]);
   const [listHeaders, setListHeaders] = useState<string[]>([]);
   const [fetchStatus, setFetchStatus] = useState<boolean>(false);
   const [pageInfo, setPageInfo] = useState<paginationPropsLogs>({
@@ -49,29 +49,28 @@ const LogsTable: React.FC = () => {
         `/api/logs?type=${selected}&page=${pageInfo.currPage}&limit=${pageInfo.size}`,
         {
           method: "GET",
-          headers: 
-            {
-              'Content-Type': 'application/json',
-            }
+          headers: { 'Content-Type': 'application/json' }
         }
-      )
+      );
 
-      if(apiCall.ok){
+      if (apiCall.ok) {
         const res = await apiCall.json();
         
         setData(res.data);
-        setPageInfo({
-          ...pageInfo,
-          totalPage:res.last_page
-        })
+        setPageInfo(prev => ({
+          ...prev,
+          totalPage: res.last_page
+        }));
+
         setFetchStatus(true);
       }
     }
 
-    setListHeaders(apiAttribute[selected].responseField)
+    setListHeaders(apiAttribute[selected].responseField);
+    
     fetchData();
 
-  }, [selected, pageInfo.currPage])
+  }, [selected, pageInfo.currPage, pageInfo.size, setListHeaders, setData]); 
 
   return (
     <div>

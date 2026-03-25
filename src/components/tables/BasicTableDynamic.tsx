@@ -8,70 +8,75 @@ import {
 } from "../ui/table";
 
 type BasicTableDynamicProps = {
-    headers: Array<string>,
-    data: object[]
-}
+  headers: Array<string>;
+  data: Record<string, unknown>[]; 
+};
 
 const BasicTableDynamic: React.FC<BasicTableDynamicProps> = ({
-    headers,
-    data
+  headers,
+  data
 }) => {
+  const dataTableHeader = headers.map((header) => (
+    <TableCell
+      isHeader
+      className="px-5 py-3 font-large text-gray-500 text-start text-theme-xs dark:text-gray-400"
+      key={header}
+    >
+      {header}
+    </TableCell>
+  ));
 
-    const dataTableHeader:React.ReactNode[] = []
-    const dataTableBody:React.ReactNode[] = []
+  const dataTableBody: React.ReactNode[] = [];
 
-    for (const i of headers) {
-        dataTableHeader.push(
-            <TableCell
-                isHeader
-                className="px-5 py-3 font-large text-gray-500 text-start text-theme-xs dark:text-gray-400"
-                key={i}
-            >
-                {i}
-            </TableCell>
-        )
-    }
+  if (data && data.length > 0) {
+    const fieldKeys = Object.keys(data[0]);
 
-    if(data !== undefined && data.length > 0) {
-        const fieldKey = Object.keys(data[0])
-        for (let i = 0 ; i < data.length; i++) {
-            const dataIterator: any = data[i]
-            let dataPerRows = []
-            for(const x of fieldKey) {
-                let value = dataIterator[x]
-                if(dataIterator[x] instanceof Object) {
-                    value = JSON.stringify(dataIterator[x])
-                }
+    data.forEach((item, index) => {
+      const dataPerRows = fieldKeys.map((key) => {
+        const rawValue = item[key];
+        
+        let displayValue: React.ReactNode;
 
-                dataPerRows.push(
-                    <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400" key={x}>
-                        {value}
-                    </TableCell>
-                )
-            }
-
-            dataTableBody.push(
-                <TableRow key={(dataIterator._id === undefined) ? i : dataIterator._id+"cell"}>
-                    {dataPerRows}
-                </TableRow>
-            )
+        if (typeof rawValue === "object" && rawValue !== null) {
+          displayValue = JSON.stringify(rawValue);
+        } else {
+          displayValue = rawValue as React.ReactNode;
         }
-    }
 
-    return (
-        <div className="min-w-[1102px]">
-            <Table>
-                <TableHeader>
-                    <TableRow>
-                        {dataTableHeader}
-                    </TableRow>
-                </TableHeader>
-                <TableBody>
-                    {dataTableBody}
-                </TableBody>
-            </Table>
-        </div>
-    )
-}
+        return (
+          <TableCell 
+            className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400" 
+            key={key}
+          >
+            {displayValue}
+          </TableCell>
+        );
+      });
 
-export default BasicTableDynamic
+      const rowKey = (item._id as string) || `row-${index}`;
+
+      dataTableBody.push(
+        <TableRow key={rowKey}>
+          {dataPerRows}
+        </TableRow>
+      );
+    });
+  }
+
+  return (
+    <div className="min-w-[1102px]">
+      <Table>
+        <TableHeader>
+          <TableRow>
+            {dataTableHeader}
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {dataTableBody}
+        </TableBody>
+      </Table>
+    </div>
+  );
+};
+
+export default BasicTableDynamic;

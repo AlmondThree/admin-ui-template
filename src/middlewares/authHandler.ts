@@ -5,7 +5,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 import authorizationAttr from "@/manifest/json/authorizationAttr.json"
 
-export async function authHandler(request:NextRequest, next: Function) {
+export async function authHandler(request:NextRequest, next: () => void) {
 
     if(request.nextUrl.pathname.includes('api/')) {
         return next();
