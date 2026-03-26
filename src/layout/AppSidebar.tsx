@@ -10,6 +10,7 @@ import {
   GridIcon,
   GroupIcon,
   HorizontaLDots,
+  InfoIcon,
   UserCircleIcon,
 } from "../icons/index";
 
@@ -30,7 +31,7 @@ const navItems: NavItem[] = [
   
   {
     name: "Logs",
-    icon: <BoxCubeIcon />,
+    icon: <InfoIcon />,
     // subItems: [{ name: "Basic Tables", path: "/logs", pro: false }],
     path: "/logs"
   },
@@ -42,6 +43,15 @@ const navItems: NavItem[] = [
       { name: "Assign Roles", path: "/assign/roles", pro: false },
     ],
     path: "/roles",
+  },
+  {
+    icon: <BoxCubeIcon />,
+    name: "Scope",
+    subItems: [
+      {name: "List Scope", path: "/scope", pro: false },
+      { name: "Assign Scope", path: "/assign/scope", pro: false },
+    ],
+    path: "/scope",
   },
 ];
 

@@ -63,6 +63,30 @@
                 "super.admin",
                 "admin.manage"
             ]
+        },
+        {
+            "path": "/scope",
+            "authorizedRole": [
+                "admin.view",
+                "super.admin",
+                "admin.manage"
+            ]
+        },
+        {
+            "path": "/assign/scope",
+            "authorizedRole": [
+                "admin.view",
+                "super.admin",
+                "admin.manage"
+            ]
+        },
+        {
+            "path": "/assign/scope/*",
+            "authorizedRole": [
+                "admin.view",
+                "super.admin",
+                "admin.manage"
+            ]
         }
     ]
 }
