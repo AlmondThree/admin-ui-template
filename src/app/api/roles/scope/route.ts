@@ -4,7 +4,7 @@ export async function POST(request: Request) {
     const reqBody: RequestAssignScope = await request.json();
 
     return fetch(
-        `${process.env["NEXT_PUBLIC_BACKEND_HOST_AUTH"]}/api/auth/v1/user/roles`,
+        `${process.env["NEXT_PUBLIC_BACKEND_HOST_AUTH"]}/api/auth/v1/roles/scope`,
         {
             method: "POST",
             headers: 
