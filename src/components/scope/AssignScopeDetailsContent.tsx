@@ -11,7 +11,7 @@ import { useModal } from "@/hooks/useModal";
 import DynamicModal from "../modal/DynamicModal";
 import Loading from "@/app/loading";
 import { ListIcon } from "@/icons";
-import { ResDataScope } from "@/app/(admin)/(others-pages)/assign/scope/[id]/page";
+import { ResDataScope } from "@/app/(admin)/assign/scope/[id]/page";
 
 type paginationPropsLogs = {
   currPage: number,
