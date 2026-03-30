@@ -87,6 +87,14 @@
                 "super.admin",
                 "admin.manage"
             ]
+        },
+        {
+            "path": "/profile",
+            "authorizedRole": [
+                "admin.view",
+                "super.admin",
+                "admin.manage"
+            ]
         }
     ]
 }
